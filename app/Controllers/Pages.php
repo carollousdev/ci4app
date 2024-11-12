@@ -4,17 +4,25 @@ namespace App\Controllers;
 
 class Pages extends BaseController
 {
+    public $data;
+
+    public function __construct()
+    {
+        $this->data = [
+            'title' => 'CodeIgniter 4',
+            'array' => ['John', 'Smith', 'Bryan', 'Lukas']
+        ];
+    }
+
     public function index()
     {
-        echo view('Layout/Header');
-        echo view('Pages/Index');
-        echo view('Layout/Footer');
+        $this->data['method'] = 'index';
+        return view('Pages/Index', $this->data);
     }
 
     public function About()
     {
-        echo view('Layout/Header');
-        echo view('Pages/About');
-        echo view('Layout/Footer');
+        $this->data['method'] = 'about';
+        return view('Pages/About', $this->data);
     }
 }
