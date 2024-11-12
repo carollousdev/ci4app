@@ -6,7 +6,15 @@
     <div class='row'>
         <div class=col>
             <h1>Contacts</h1>
-            <p>Lorem ipsum odor amet, consectetuer adipiscing elit. Magnis euismod ridiculus lectus platea maecenas auctor fames dapibus. Aliquam massa ultricies ut libero duis tempus. Mollis viverra egestas ac sociosqu cursus odio curabitur nec. Class pretium donec tellus quisque non tristique pharetra pulvinar donec. Vehicula aptent habitasse aliquam praesent taciti mi nisi facilisis sodales. Lacus hac ac curae tincidunt ultricies tincidunt auctor.</p>
+            <p>More informations:</p>
+
+            <?php foreach ($this->data['alamat'] as $key => $val): ?>
+                <ul>Alamat <?= $key + 1; ?></ul>
+                <?php foreach ($val as $v => $x): ?>
+                    <li><?= ucfirst($v) . ' : ' . $x; ?></li>
+                <?php endforeach; ?>
+                <br />
+            <?php endforeach; ?>
         </div>
     </div>
 </div>

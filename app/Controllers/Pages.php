@@ -10,7 +10,20 @@ class Pages extends BaseController
     {
         $this->data = [
             'title' => 'CodeIgniter 4',
-            'array' => ['John', 'Smith', 'Bryan', 'Lukas']
+            'alamat' => [
+                [
+                    'tipe' => 'Rumah',
+                    'alamat' => 'Jl. ABC No. 123',
+                    'kota' => 'Medan',
+                    'kode' => '20255'
+                ],
+                [
+                    'tipe' => 'Kantor',
+                    'alamat' => 'Jl. Merdeka No. 45A',
+                    'kota' => 'Jakarta',
+                    'kode' => '12345'
+                ],
+            ]
         ];
     }
 
