@@ -16,7 +16,7 @@ class Pages extends BaseController
 
     public function index()
     {
-        $this->data['method'] = 'index';
+        $this->data['method'] = 'home';
         return view('Pages/Index', $this->data);
     }
 
@@ -24,5 +24,11 @@ class Pages extends BaseController
     {
         $this->data['method'] = 'about';
         return view('Pages/About', $this->data);
+    }
+
+    public function Contact()
+    {
+        $this->data['method'] = 'contact';
+        return view('Pages/Contact', $this->data);
     }
 }
