@@ -23,7 +23,7 @@
                             <tr>
                                 <td><?= $key + 1; ?></td>
                                 <?php foreach ($value as $k => $val): ?>
-                                    <td><?= $k == 'sampul' ? "<img src='{$val}' width=100>" : $val; ?></td>
+                                    <td><?= $k == 'sampul' ? "<img src='{$val}' class='sampul'>" : $val; ?></td>
                                 <?php endforeach; ?>
                             </tr>
                         <?php endforeach; ?>
