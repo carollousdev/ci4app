@@ -17,8 +17,9 @@ class Komik extends BaseController
     {
 
         $data = [
+            'method' => 'index',
             'title' => 'Daftar Komik',
-            'komik' => $this->komik->findAll(),
+            'komik' => $this->komik->getKomik(),
             'ColumnName' => [
                 'id',
                 'sampul',
@@ -27,5 +28,16 @@ class Komik extends BaseController
         ];
 
         return view('Komik/index', $data);
+    }
+
+    public function details($slug)
+    {
+        $data = [
+            'method' => 'detail',
+            'title' => 'Daftar komik',
+            'komik' => $this->komik->getKomik($slug),
+        ];
+
+        return view('komik/detail', $data);
     }
 }

@@ -23,10 +23,10 @@
                             <tr>
                                 <?php foreach ($value as $k => $val): ?>
                                     <?php if (in_array($k, $ColumnName)): ?>
-                                        <td><?= $k == 'sampul' ? "<img src='assets/images/{$val}' class='sampul'>" : $val; ?></td>
+                                        <td><?= $k == 'sampul' ? '<img src=' . base_url('assets/images/' . $val) . ' class="sampul">' : $val; ?></td>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
-                                <td><a href="" class="btn btn-sm btn-success">ORDER</a></td>
+                                <td><a href="komik/<?= $value['slug']; ?>" class="btn btn-sm btn-success">ORDER</a></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
