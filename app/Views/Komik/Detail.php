@@ -5,7 +5,8 @@
 <div class='container'>
     <div class='row'>
         <div class=col>
-            <div class="card mt-5 mb-3" style="max-width: 540px;">
+            <h2 class="mt-2">Detail Komik</h2>
+            <div class="card mt-3 mb-3" style="max-width: 540px;">
                 <div class="row no-gutters">
                     <div class="col-md-4">
                         <img src="<?= base_url('assets/images/' . $komik['sampul']); ?>" class="card-img">
@@ -13,8 +14,13 @@
                     <div class="col-md-8">
                         <div class="card-body">
                             <h5 class="card-title"><?= $komik['judul']; ?></h5>
-                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            <p class="card-text"><strong>Penulis: </strong><?= $komik['penulis']; ?></p>
+                            <p class="card-text"><small class="text-muted"><strong>Penerbit: </strong><?= $komik['penerbit']; ?></small></p>
+
+                            <a href="" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="" class="btn btn-sm btn-danger">Delete</a>
+                            <br><br>
+                            <a href="<?= base_url('/komik'); ?>">Kembali ke daftar komik</a>
                         </div>
                     </div>
                 </div>
