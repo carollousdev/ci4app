@@ -21,10 +21,12 @@
                     <tbody>
                         <?php foreach ($komik as $key => $value): ?>
                             <tr>
-                                <td><?= $key + 1; ?></td>
                                 <?php foreach ($value as $k => $val): ?>
-                                    <td><?= $k == 'sampul' ? "<img src='{$val}' class='sampul'>" : $val; ?></td>
+                                    <?php if (in_array($k, $ColumnName)): ?>
+                                        <td><?= $k == 'sampul' ? "<img src='assets/images/{$val}' class='sampul'>" : $val; ?></td>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
+                                <td><a href="" class="btn btn-sm btn-success">ORDER</a></td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
