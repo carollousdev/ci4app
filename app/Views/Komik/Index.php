@@ -12,30 +12,38 @@
             <?php endif; ?>
         </div>
         <div class=col>
-            <a href="<?= base_url('komik/create'); ?>" class="btn btn-sm btn-primary">Tambah komik</a>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Sampul</th>
-                            <th scope="col">Judul</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($komik as $key => $value): ?>
+            <a href="<?= base_url('komik/create'); ?>" class="btn btn-sm btn-outline-primary mt-3 mb-3">Tambah komik</a>
+            <div class="card mb-5">
+                <div class="card-header">
+                    <h2>Daftar Komik</h2>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <?php foreach ($value as $k => $val): ?>
-                                    <?php if (in_array($k, $ColumnName)): ?>
-                                        <td><?= $k == 'sampul' ? '<img src=' . base_url('assets/images/' . $val) . ' class="sampul">' : $val; ?></td>
-                                    <?php endif; ?>
-                                <?php endforeach; ?>
-                                <td><a href="komik/<?= $value['slug']; ?>" class="btn btn-sm btn-success">ORDER</a></td>
+                                <th scope="col">#</th>
+                                <th scope="col">Sampul</th>
+                                <th scope="col">Judul</th>
+                                <th scope="col">Aksi</th>
                             </tr>
-                        <?php endforeach; ?>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($komik as $key => $value): ?>
+                                <tr>
+                                    <?php foreach ($value as $k => $val): ?>
+                                        <?php if (in_array($k, $ColumnName)): ?>
+                                            <td><?= $k == 'sampul' ? '<img src=' . base_url('assets/images/' . $val) . ' class="sampul">' : $val; ?></td>
+                                        <?php endif; ?>
+                                    <?php endforeach; ?>
+                                    <td>
+                                        <a href="komik/<?= $value['slug']; ?>" class="btn btn-sm btn-success">INFO</a>
+                                        <a href="#" class="btn btn-sm btn-warning">PRINT</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

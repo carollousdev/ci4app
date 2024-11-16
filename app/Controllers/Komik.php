@@ -9,10 +9,13 @@ class Komik extends BaseController
     protected $komik;
     protected $data;
     protected $errors;
+    protected $validation;
 
     public function __construct()
     {
         $this->komik = new KomikModel();
+        $this->validation = \Config\Services::validation();
+
         $this->data = [
             'title' => 'Komik Gratis'
         ];
@@ -63,6 +66,12 @@ class Komik extends BaseController
             if (!empty($this->request->getVar($value))) {
                 $data[$value] = $this->request->getVar($value);
             } else if ($value !== 'slug') $this->errors[] = $value;
+        }
+
+        if (!$this->validate([
+            'judul' => 'required|is_unique[komik.judul]'
+        ])) {
+            dd($this->validation);
         }
 
         if (!empty($data['judul']))
