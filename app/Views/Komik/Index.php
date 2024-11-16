@@ -4,10 +4,15 @@
 
 <div class='container'>
     <div class='row'>
+        <div class="col-12">
+            <?php if (session()->getFlashdata('pesan')): ?>
+                <div class="alert alert-success" role="alert">
+                    <?= session()->getFlashdata('pesan'); ?>
+                </div>
+            <?php endif; ?>
+        </div>
         <div class=col>
-            <div class="card-header">
-                <h1><?= $title; ?></h1>
-            </div>
+            <a href="<?= base_url('komik/create'); ?>" class="btn btn-sm btn-primary">Tambah komik</a>
             <div class="card-body">
                 <table class="table">
                     <thead>
