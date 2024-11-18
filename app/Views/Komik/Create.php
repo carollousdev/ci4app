@@ -37,7 +37,7 @@
                             <label for="sampul" class="col-sm-2 col-form-label">Penerbit</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control <?= (session('validation') && isset(session('validation')['penerbit'])) ? "is-invalid" : "" ?>" name="penerbit" id="penerbit">
+                                    <input type="text" class="form-control <?= (session('validation') && isset(session('validation')['penerbit'])) ? "is-invalid" : "" ?>" name="penerbit" id="penerbit" value="<?= old('penerbit'); ?>">
                                     <div class="invalid-feedback">
                                         <?= session('validation')['penerbit'] ?? "" ?>
                                     </div>
@@ -48,7 +48,7 @@
                             <label for="sampul" class="col-sm-2 col-form-label">Sampul</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" name="sampul" id="sampul">
+                                    <input type="text" class="form-control" name="sampul" id="sampul" value="<?= old('sampul'); ?>">
                                     <div class="invalid-feedback">
                                     </div>
                                 </div>
