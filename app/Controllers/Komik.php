@@ -12,7 +12,6 @@ class Komik extends BaseController
 
     public function __construct()
     {
-        session();
         $this->komik = new KomikModel();
         $this->validation = \Config\Services::validation();
 
@@ -24,7 +23,6 @@ class Komik extends BaseController
     public function index()
     {
         $data = [
-            'method' => 'index',
             'komik' => $this->komik->getKomik(),
             'ColumnName' => [
                 'id',
@@ -39,7 +37,6 @@ class Komik extends BaseController
     public function details($slug)
     {
         $data = [
-            'method' => 'detail',
             'komik' => $this->komik->getKomik($slug),
         ];
 
@@ -51,23 +48,19 @@ class Komik extends BaseController
 
     public function create()
     {
-        $data = [
-            'method' => 'create',
-        ];
-
-        return view('komik/create', array_merge($data, $this->data));
+        return view('komik/create', $this->data);
     }
 
     public function save()
     {
         $data = [];
-        $validation = \Config\Services::validation();
-
         if (!$this->validate([
             'judul' => 'required|is_unique[komik.judul]',
-            'penulis' => 'required'
+            'penerbit' => 'required',
+            'penulis' => 'required',
+            'sampul' => 'required'
         ])) {
-            return redirect()->back()->withInput()->with('validation', $validation->listErrors());
+            return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         }
     }
 }

@@ -8,32 +8,51 @@
             <div class="card my-5">
                 <div class="card-header">
                     <h2>Tambah Komik</h2>
-                    <?= session('validation'); ?>
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url('komik/save'); ?>" method="POST">
+                    <form action="<?= base_url('komik/save'); ?>" class="needs-validation" method="POST" novalidate>
                         <div class="form-group row">
                             <label for="sampul" class="col-sm-2 col-form-label">Judul</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="judul" name="judul" autofocus>
+                                <div class="input-group">
+                                    <input type="text" class="form-control<?= isset(session('validation')['judul']) ? " is-invalid" : "" ?>" name="judul" id="judul">
+                                    <div class="invalid-feedback">
+                                        <?= session('validation')['judul'] ?? "" ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="sampul" class="col-sm-2 col-form-label">Penulis</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="penulis" name="penulis">
+                                <div class="input-group">
+                                    <input type="text" class="form-control<?= isset(session('validation')['penulis']) ? " is-invalid" : "" ?>" name="penulis" id="penulis">
+                                    <div class="invalid-feedback">
+                                        <?= session('validation')['penulis'] ?? "" ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="sampul" class="col-sm-2 col-form-label">Penerbit</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="penerbit" name="penerbit">
+                                <div class="input-group">
+                                    <input type="text" class="form-control<?= isset(session('validation')['penerbit']) ? " is-invalid" : "" ?>" name="penerbit" id="penerbit">
+                                    <div class="invalid-feedback">
+                                        <?= session('validation')['penerbit'] ?? "" ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group row">
                             <label for="sampul" class="col-sm-2 col-form-label">Sampul</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="sampul" name="sampul">
+                                <div class="input-group">
+                                    <input type="text" class="form-control<?= isset(session('validation')['sampul']) ? " is-invalid" : "" ?>" name="sampul" id="sampul">
+                                    <div class="invalid-feedback">
+                                        <?= session('validation')['sampul'] ?? "" ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
