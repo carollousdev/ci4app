@@ -55,10 +55,16 @@ class Komik extends BaseController
     {
         $data = [];
         if (!$this->validate([
-            'judul' => 'required|is_unique[komik.judul]',
-            'penerbit' => 'required',
-            'penulis' => 'required',
-            'sampul' => 'required'
+            "judul" => [
+                "rules" => 'required|is_unique[komik.judul]',
+                "errors" => [
+                    "required" => '{field} harus diisi.',
+                    "is_unique" => '{field} komik sudah ada.'
+                ],
+            ],
+            "penerbit" => 'required',
+            "penulis" => 'required',
+            "sampul" => 'required'
         ])) {
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         }

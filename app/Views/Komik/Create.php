@@ -15,7 +15,7 @@
                             <label for="sampul" class="col-sm-2 col-form-label">Judul</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control<?= isset(session('validation')['judul']) ? " is-invalid" : "" ?>" name="judul" id="judul">
+                                    <input type="text" class="form-control <?= (session('validation') && isset(session('validation')['judul'])) ? "is-invalid" : "" ?>" name="judul" id="judul">
                                     <div class="invalid-feedback">
                                         <?= session('validation')['judul'] ?? "" ?>
                                     </div>
@@ -26,7 +26,7 @@
                             <label for="sampul" class="col-sm-2 col-form-label">Penulis</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control<?= isset(session('validation')['penulis']) ? " is-invalid" : "" ?>" name="penulis" id="penulis">
+                                    <input type="text" class="form-control <?= (session('validation') && isset(session('validation')['penulis'])) ? "is-invalid" : "" ?>" name="penulis" id="penulis" value="<?= old('penulis'); ?>">
                                     <div class="invalid-feedback">
                                         <?= session('validation')['penulis'] ?? "" ?>
                                     </div>
@@ -37,7 +37,7 @@
                             <label for="sampul" class="col-sm-2 col-form-label">Penerbit</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control<?= isset(session('validation')['penerbit']) ? " is-invalid" : "" ?>" name="penerbit" id="penerbit">
+                                    <input type="text" class="form-control <?= (session('validation') && isset(session('validation')['penerbit'])) ? "is-invalid" : "" ?>" name="penerbit" id="penerbit">
                                     <div class="invalid-feedback">
                                         <?= session('validation')['penerbit'] ?? "" ?>
                                     </div>
@@ -48,9 +48,8 @@
                             <label for="sampul" class="col-sm-2 col-form-label">Sampul</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control<?= isset(session('validation')['sampul']) ? " is-invalid" : "" ?>" name="sampul" id="sampul">
+                                    <input type="text" class="form-control" name="sampul" id="sampul">
                                     <div class="invalid-feedback">
-                                        <?= session('validation')['sampul'] ?? "" ?>
                                     </div>
                                 </div>
                             </div>
