@@ -8,11 +8,11 @@ class Komik extends BaseController
 {
     protected $komik;
     protected $data;
-    protected $errors;
     protected $validation;
 
     public function __construct()
     {
+        session();
         $this->komik = new KomikModel();
         $this->validation = \Config\Services::validation();
 
@@ -23,7 +23,6 @@ class Komik extends BaseController
 
     public function index()
     {
-
         $data = [
             'method' => 'index',
             'komik' => $this->komik->getKomik(),
@@ -53,7 +52,7 @@ class Komik extends BaseController
     public function create()
     {
         $data = [
-            'method' => 'create'
+            'method' => 'create',
         ];
 
         return view('komik/create', array_merge($data, $this->data));
@@ -62,26 +61,13 @@ class Komik extends BaseController
     public function save()
     {
         $data = [];
-        foreach ($this->komik->allowedFields as $key => $value) {
-            if (!empty($this->request->getVar($value))) {
-                $data[$value] = $this->request->getVar($value);
-            } else if ($value !== 'slug') $this->errors[] = $value;
-        }
+        $validation = \Config\Services::validation();
 
         if (!$this->validate([
-            'judul' => 'required|is_unique[komik.judul]'
+            'judul' => 'required|is_unique[komik.judul]',
+            'penulis' => 'required'
         ])) {
-            dd($this->validation);
+            return redirect()->back()->withInput()->with('validation', $validation->listErrors());
         }
-
-        if (!empty($data['judul']))
-            $data['slug'] = url_title($data['judul'], '-', true);
-
-        if (empty($this->errors)) {
-            if ($this->komik->save($data)) {
-                session()->setFlashdata('pesan', "Data {$data['judul']} berhasil ditambahkan");
-                return redirect()->to('/komik');
-            }
-        } else return redirect()->to('/komik/create');
     }
 }

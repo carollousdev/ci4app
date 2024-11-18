@@ -8,10 +8,10 @@
             <div class="card my-5">
                 <div class="card-header">
                     <h2>Tambah Komik</h2>
+                    <?= session('validation'); ?>
                 </div>
                 <div class="card-body">
                     <form action="<?= base_url('komik/save'); ?>" method="POST">
-                        <?= csrf_field(); ?>
                         <div class="form-group row">
                             <label for="sampul" class="col-sm-2 col-form-label">Judul</label>
                             <div class="col-sm-10">
