@@ -15,7 +15,7 @@
                             <label for="sampul" class="col-sm-2 col-form-label">Judul</label>
                             <div class="col-sm-10">
                                 <div class="input-group">
-                                    <input type="text" class="form-control <?= (session('validation') && isset(session('validation')['judul'])) ? "is-invalid" : "" ?>" name="judul" id="judul">
+                                    <input type="text" class="form-control <?= (session('validation') && isset(session('validation')['judul'])) ? "is-invalid" : "" ?>" name="judul" id="judul" autofocus>
                                     <div class="invalid-feedback">
                                         <?= session('validation')['judul'] ?? "" ?>
                                     </div>

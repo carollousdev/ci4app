@@ -67,6 +67,11 @@ class Komik extends BaseController
             "sampul" => 'required'
         ])) {
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
+        } else {
+            $data = $this->request->getGetPost();
+            $data['slug'] = url_title($data['judul'], '-', true);
+            if ($this->komik->save($data))
+                return redirect()->to(base_url('komik'));
         }
     }
 }
