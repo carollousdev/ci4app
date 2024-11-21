@@ -20,7 +20,7 @@
                             <a href="" class="btn btn-sm btn-warning">Edit</a>
                             <form action="<?= base_url('komik/' . $komik['id']) ?>" class="d-inline" method="POST">
                                 <input type="hidden" name="_method" value="DELETE">
-                                <button class="btn btn-sm btn-danger" type="submit">delete</button>
+                                <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Apakah Anda yakin?')">delete</button>
                             </form>
                             <br><br>
                             <a href="<?= base_url('/komik'); ?>">Kembali ke daftar komik</a>
