@@ -18,7 +18,10 @@
                             <p class="card-text"><small class="text-muted"><strong>Penerbit: </strong><?= $komik['penerbit']; ?></small></p>
 
                             <a href="" class="btn btn-sm btn-warning">Edit</a>
-                            <a href="" class="btn btn-sm btn-danger">Delete</a>
+                            <form action="<?= base_url('komik/' . $komik['id']) ?>" class="d-inline" method="POST">
+                                <input type="hidden" name="_method" value="DELETE">
+                                <button class="btn btn-sm btn-danger" type="submit">delete</button>
+                            </form>
                             <br><br>
                             <a href="<?= base_url('/komik'); ?>">Kembali ke daftar komik</a>
                         </div>

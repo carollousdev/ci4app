@@ -74,4 +74,11 @@ class Komik extends BaseController
                 return redirect()->to(base_url('komik'));
         }
     }
+
+    public function delete($id)
+    {
+        if ($this->komik->delete($id)) {
+            return redirect()->to(base_url('komik'));
+        }
+    }
 }
