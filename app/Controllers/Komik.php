@@ -71,13 +71,15 @@ class Komik extends BaseController
             $data = $this->request->getGetPost();
             $data['slug'] = url_title($data['judul'], '-', true);
             if ($this->komik->save($data))
-                return redirect()->to(base_url('komik'));
+                session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+            return redirect()->to(base_url('komik'));
         }
     }
 
     public function delete($id)
     {
         if ($this->komik->delete($id)) {
+            session()->setFlashdata('pesan', 'Data berhasil dihapus');
             return redirect()->to(base_url('komik'));
         }
     }
