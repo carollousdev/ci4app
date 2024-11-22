@@ -55,7 +55,7 @@ abstract class BaseController extends Controller
 
         // E.g.: $this->session = \Config\Services::session();
 
-        // session();
+        session();
         isset($_SERVER['PATH_INFO']) ? $this->data['method'] = explode('/', $_SERVER['PATH_INFO'])[1] : $this->data['method'] = "";
     }
 }

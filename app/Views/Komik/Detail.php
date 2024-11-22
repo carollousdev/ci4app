@@ -17,7 +17,7 @@
                             <p class="card-text"><strong>Penulis: </strong><?= $komik['penulis']; ?></p>
                             <p class="card-text"><small class="text-muted"><strong>Penerbit: </strong><?= $komik['penerbit']; ?></small></p>
 
-                            <a href="" class="btn btn-sm btn-warning">Edit</a>
+                            <a href="<?= base_url('komik/edit/' . $komik['slug']) ?>" class="btn btn-sm btn-warning">Edit</a>
                             <form action="<?= base_url('komik/' . $komik['id']) ?>" class="d-inline" method="POST">
                                 <input type="hidden" name="_method" value="DELETE">
                                 <button class="btn btn-sm btn-danger" type="submit" onclick="return confirm('Apakah Anda yakin?')">delete</button>

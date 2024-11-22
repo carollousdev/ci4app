@@ -9,6 +9,7 @@ class Komik extends BaseController
     protected $komik;
     protected $data;
     protected $validation;
+    protected $validations;
 
     public function __construct()
     {
@@ -37,7 +38,7 @@ class Komik extends BaseController
     public function details($slug)
     {
         $data = [
-            'komik' => $this->komik->getKomik($slug),
+            'komik' => $this->komik->getKomik(['slug' => $slug]),
         ];
 
         if (empty($data['komik']))
@@ -72,6 +73,52 @@ class Komik extends BaseController
             $data['slug'] = url_title($data['judul'], '-', true);
             if ($this->komik->save($data))
                 session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+            return redirect()->to(base_url('komik'));
+        }
+    }
+
+    public function edit($slug)
+    {
+        $data['komik'] = $this->komik->getKomik(['slug' => $slug]);
+
+        if (empty($data['komik']))
+            throw new \CodeIgniter\Exceptions\PageNotFoundException('Judul komik ' . $slug . ' tidak ditemukan.');
+
+        return view('komik/edit', array_merge($data, $this->data));
+    }
+
+    public function update()
+    {
+
+        $this->validations['rules'] = [
+            'judul' => $this->komik->getKomik(['id' => $this->request->getVar('id')])['judul'] == $this->request->getVar('judul') ? 'required' : 'required|is_unique[komik.judul]',
+            'penulis' => 'required',
+            'penerbit' => 'required',
+            'sampul' => 'required',
+        ];
+
+        $this->validations['messages'] = [
+            'judul' => [
+                'required' => 'Judul harus diisi.',
+                'is_unique' => 'Judul sudah ada.'
+            ],
+            'penulis' => [
+                'required' => 'Penulis harus diisi.'
+            ],
+            'penerbit' => [
+                'required' => 'Penerbit harus diisi.'
+            ],
+            'sampul' => [
+                'required' => 'Sampul harus diisi'
+            ],
+        ];
+
+        if (!$this->Validate($this->validations['rules'], $this->validations['messages'])) {
+            return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
+        } else {
+            $data = array_merge(['slug' => url_title($this->request->getVar('judul'), '-', true)], $this->request->getVar());
+            if ($this->komik->save($data))
+                session()->setFlashdata('pesan', 'Data berhasil diubah.');
             return redirect()->to(base_url('komik'));
         }
     }
