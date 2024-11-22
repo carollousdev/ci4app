@@ -90,6 +90,7 @@ class Komik extends BaseController
     public function update()
     {
 
+        // Validation rules
         $this->validations['rules'] = [
             'judul' => $this->komik->getKomik(['id' => $this->request->getVar('id')])['judul'] == $this->request->getVar('judul') ? 'required' : 'required|is_unique[komik.judul]',
             'penulis' => 'required',
@@ -97,6 +98,7 @@ class Komik extends BaseController
             'sampul' => 'required',
         ];
 
+        // Validation messages
         $this->validations['messages'] = [
             'judul' => [
                 'required' => 'Judul harus diisi.',
@@ -113,14 +115,20 @@ class Komik extends BaseController
             ],
         ];
 
+        // Validate input
         if (!$this->Validate($this->validations['rules'], $this->validations['messages'])) {
-            return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
-        } else {
-            $data = array_merge(['slug' => url_title($this->request->getVar('judul'), '-', true)], $this->request->getVar());
-            if ($this->komik->save($data))
-                session()->setFlashdata('pesan', 'Data berhasil diubah.');
-            return redirect()->to(base_url('komik'));
+            return redirect()->back()->withInput()->with('validation', $this->validation);
         }
+
+        // Prepare data for updating
+        $data = array_merge(['slug' => url_title($this->request->getVar('judul'), '-', true)], $this->request->getVar());
+
+        // Save the data
+        if ($this->komik->save($data)) {
+            session()->setFlashdata('pesan', 'Data berhasil diubah.');
+        }
+
+        return redirect()->to(base_url('komik'));
     }
 
     public function delete($id)
