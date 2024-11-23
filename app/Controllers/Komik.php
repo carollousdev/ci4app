@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\KomikModel;
+use CodeIgniter\Files\File;
 
 class Komik extends BaseController
 {
@@ -54,28 +55,47 @@ class Komik extends BaseController
 
     public function save()
     {
-        $data = [];
-        if (!$this->validate([
-            "judul" => [
-                "rules" => 'required|is_unique[komik.judul]',
-                "errors" => [
-                    "required" => '{field} harus diisi.',
-                    "is_unique" => '{field} komik sudah ada.'
-                ],
-            ],
-            "penerbit" => 'required',
-            "penulis" => 'required',
-            "sampul" => 'required'
-        ])) {
+        // Define validation rules
+        $this->validations['rules'] = [
+            'judul' => 'required|is_unique[komik.judul]',
+            'penulis' => 'required',
+            'penerbit' => 'required',
+            'sampul' => 'mime_in[sampul, image/jpg,image/jpeg,image/gif,image/webp]'
+        ];
+
+        if (!$this->validate($this->validations['rules'])) {
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         } else {
-            $data = $this->request->getGetPost();
-            $data['slug'] = url_title($data['judul'], '-', true);
-            if ($this->komik->save($data))
-                session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
-            return redirect()->to(base_url('komik'));
+
+            $img = $this->request->getFile('sampul');
+            $imgName = 'default.jpg';
+
+            if (strlen($img->getName()) > 1) {
+                $imgName = $img->getName();
+                if ($img->isValid() && !$img->hasMoved()) {
+                    $uploadPath = FCPATH . 'uploads/images/';
+                    file_exists($uploadPath . $img->getName()) ?
+                        $img->move($uploadPath . 'temp/', $img->getRandomName()) :
+                        $img->move($uploadPath, $img->getName());
+                }
+            }
+
+            $data = array_merge(
+                [
+                    'sampul' => $imgName,
+                    'slug' => url_title($this->request->getVar('judul'), '-', true)
+                ],
+                $this->request->getVar()
+            );
+
+            if ($this->komik->save($data)) {
+                session()->setFlashdata('pesan', 'Data berhasil ditambahkan.');
+            }
+
+            return redirect()->to('komik');
         }
     }
+
 
     public function edit($slug)
     {
@@ -90,7 +110,7 @@ class Komik extends BaseController
     public function update()
     {
 
-        // Validation rules
+        // Define validation rules
         $this->validations['rules'] = [
             'judul' => $this->komik->getKomik(['id' => $this->request->getVar('id')])['judul'] == $this->request->getVar('judul') ? 'required' : 'required|is_unique[komik.judul]',
             'penulis' => 'required',
@@ -98,7 +118,7 @@ class Komik extends BaseController
             'sampul' => 'required',
         ];
 
-        // Validation messages
+        // Define validation messages
         $this->validations['messages'] = [
             'judul' => [
                 'required' => 'Judul harus diisi.',
@@ -117,17 +137,19 @@ class Komik extends BaseController
 
         // Validate input
         if (!$this->Validate($this->validations['rules'], $this->validations['messages'])) {
-            return redirect()->back()->withInput()->with('validation', $this->validation);
+            // If validation fails, redirect back with input and errors
+            return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         }
 
         // Prepare data for updating
         $data = array_merge(['slug' => url_title($this->request->getVar('judul'), '-', true)], $this->request->getVar());
 
-        // Save the data
+        // Save the updated data
         if ($this->komik->save($data)) {
             session()->setFlashdata('pesan', 'Data berhasil diubah.');
         }
 
+        // Redirect back to komik list
         return redirect()->to(base_url('komik'));
     }
 

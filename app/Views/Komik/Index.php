@@ -35,7 +35,7 @@
                                 <tr>
                                     <?php foreach ($value as $k => $val): ?>
                                         <?php if (in_array($k, $ColumnName)): ?>
-                                            <td><?= $k == 'sampul' ? '<img src=' . base_url('assets/images/' . $val) . ' class="sampul">' : $val; ?></td>
+                                            <td><?= $k == 'sampul' ? '<img src=' . base_url('uploads/images/' . $val) . ' class="sampul">' : $val; ?></td>
                                         <?php endif; ?>
                                     <?php endforeach; ?>
                                     <td>

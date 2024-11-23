@@ -10,7 +10,7 @@
                     <h2>Form Update Komik</h2>
                 </div>
                 <div class="card-body">
-                    <?= var_dump(session('validator')); ?>
+
                     <form action="<?= base_url('komik/update'); ?>" class="needs-validation" method="POST" novalidate>
 
                         <input type="hidden" name="id" id="id" value="<?= $komik['id'] ?>">
@@ -70,6 +70,7 @@
                         </div>
 
                     </form>
+
                 </div>
             </div>
         </div>
