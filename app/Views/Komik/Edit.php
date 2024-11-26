@@ -70,6 +70,7 @@
                         <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary">Update data</button>
                         </div>
+                        <a href="<?= base_url('/komik'); ?>">Kembali ke daftar komik</a>
                     </div>
 
                     </form>

@@ -148,8 +148,9 @@ class Komik extends BaseController
         if (strlen($img->getName()) > 1) {
             $sampul = $img->getName();
             if ($img->isValid() && !$img->hasMoved()) {
-                $uploadPath = FCPATH . 'uploads/images/';
-                $img->move($uploadPath, $sampul);
+                file_exists($uploadPath . $img->getName()) ?
+                    $img->move($uploadPath . 'temp/', $img->getRandomName()) :
+                    $img->move($uploadPath, $img->getName());
             }
         }
 
