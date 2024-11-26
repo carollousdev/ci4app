@@ -109,13 +109,15 @@ class Komik extends BaseController
 
     public function update()
     {
+        $img = $this->request->getFile('sampul');
+        $uploadPath = FCPATH . 'uploads/images/';
 
         // Define validation rules
         $this->validations['rules'] = [
             'judul' => $this->komik->getKomik(['id' => $this->request->getVar('id')])['judul'] == $this->request->getVar('judul') ? 'required' : 'required|is_unique[komik.judul]',
             'penulis' => 'required',
             'penerbit' => 'required',
-            'sampul' => 'required',
+            'sampul' => 'mime_in[sampul, image/jpg,image/jpeg,image/gif,image/webp]',
         ];
 
         // Define validation messages
@@ -131,7 +133,7 @@ class Komik extends BaseController
                 'required' => 'Penerbit harus diisi.'
             ],
             'sampul' => [
-                'required' => 'Sampul harus diisi'
+                'mime_in' => 'Sampul tidak sesuai format.'
             ],
         ];
 
@@ -141,8 +143,18 @@ class Komik extends BaseController
             return redirect()->back()->withInput()->with('validation', $this->validation->getErrors());
         }
 
+        $sampul = $this->komik->getKomik(['id' => $this->request->getVar('id')])['sampul'];
+
+        if (strlen($img->getName()) > 1) {
+            $sampul = $img->getName();
+            if ($img->isValid() && !$img->hasMoved()) {
+                $uploadPath = FCPATH . 'uploads/images/';
+                $img->move($uploadPath, $sampul);
+            }
+        }
+
         // Prepare data for updating
-        $data = array_merge(['slug' => url_title($this->request->getVar('judul'), '-', true)], $this->request->getVar());
+        $data = array_merge(['slug' => url_title($this->request->getVar('judul'), '-', true), 'sampul' => $sampul], $this->request->getVar());
 
         // Save the updated data
         if ($this->komik->save($data)) {
