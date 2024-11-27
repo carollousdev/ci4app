@@ -2,28 +2,18 @@
 
 namespace App\Controllers;
 
+use \App\Models\PersonModel;
+
 class Pages extends BaseController
 {
     public $data;
+    public $person;
 
     public function __construct()
     {
         $this->data = [
             'title' => 'CodeIgniter 4',
-            'alamat' => [
-                [
-                    'tipe' => 'Rumah',
-                    'alamat' => 'Jl. ABC No. 123',
-                    'kota' => 'Medan',
-                    'kode' => '20255'
-                ],
-                [
-                    'tipe' => 'Kantor',
-                    'alamat' => 'Jl. Merdeka No. 45A',
-                    'kota' => 'Jakarta',
-                    'kode' => '12345'
-                ],
-            ]
+            'person' => new PersonModel()
         ];
     }
 
@@ -42,6 +32,13 @@ class Pages extends BaseController
     public function Contact()
     {
         $this->data['method'] = 'contact';
-        return view('Pages/Contact', $this->data);
+        $model = model(PersonModel::class);
+
+        $data = [
+            'persons' => $model->paginate(10),
+            'pager' => $model->pager,
+        ];
+
+        return view('Pages/Contact', $data);
     }
 }
