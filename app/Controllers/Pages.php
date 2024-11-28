@@ -7,7 +7,6 @@ use \App\Models\PersonModel;
 class Pages extends BaseController
 {
     public $data;
-    public $person;
 
     public function __construct()
     {
@@ -32,10 +31,13 @@ class Pages extends BaseController
     public function Contact()
     {
         $this->data['method'] = 'contact';
-        $model = model(PersonModel::class);
+
+        if ($this->request->getVar('keyword')) {
+            $model = $this->data['person']->search($this->request->getVar('keyword'));
+        } else $model = $this->data['person'];
 
         $data = [
-            'persons' => $model->paginate(10),
+            'persons' => $model->paginate(5, 'person'),
             'pager' => $model->pager,
         ];
 
