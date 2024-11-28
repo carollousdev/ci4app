@@ -41,6 +41,6 @@ class Pages extends BaseController
             'pager' => $model->pager,
         ];
 
-        return view('Pages/Contact', $data);
+        return view('Pages/Contact', array_merge($data, $this->data));
     }
 }
